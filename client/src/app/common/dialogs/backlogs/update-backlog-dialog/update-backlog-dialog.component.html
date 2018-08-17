@@ -1,0 +1,9 @@
+<i class="material-icons close-icon" (click)="closeDialog()">
+    close
+  </i>
+  <h2 mat-dialog-title>
+    {{ backlog.backlog_name | shortbrief:30 }}
+  </h2>
+  <mat-dialog-content>
+    <backlog-form [backlogData]="backlog" (updateFlag)="backlogUpdateFlag($event)"></backlog-form>
+  </mat-dialog-content>

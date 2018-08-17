@@ -1,0 +1,101 @@
+<div id="iteration-info-page">
+    <i class="material-icons goback-icon"
+       *ngIf="iteration"
+       [routerLink]="['/project',iteration.project_uid]"
+       matTooltip="return"
+       matTooltipPosition="right">
+      keyboard_backspace
+    </i>
+    <div class="row iteration-body">
+      <div class="col-md-9">
+        <div class="row iteration-details">
+          <div class="col-md-12" *ngIf="iteration">
+            <p id="directory_tag">Project > Iteration</p>
+            <h4 id="iteration_title">{{ iteration.iteration_name }} 
+              <i class="material-icons edit-icon"
+                 matTooltip="Edit"
+                 matTooltipPosition="right"
+                 (click)="editIteration()">
+                edit
+              </i>
+            </h4>
+            <p id="iteration_stats">
+              Created : {{ iteration.created_at | date:'medium':'-000' }} || Updated : {{ iteration.date_modified | date:'medium':'-000' }}
+            </p>
+            <p id="iteration_status" [style.backgroundColor]="statusColor">{{ iteration.status }}</p>
+            <p id="iteration_description">{{ iteration.iteration_description }}</p>
+          </div>
+        </div>
+        <div class="row iteration-backloglist">
+          <div id="backlogs" *ngIf="backlogsArray.length;else noBacklogs">
+            <h5>List of Backlogs</h5>
+            <div class="row list-head">
+              <tr style="font-size: 17px">
+                <td style="width:545px;padding-left: 110px">
+                  <h5>Backlog Description</h5>
+                </td>
+                <td style="width:90px"><h5>Status</h5></td>
+                <td style="width:90px"><h5>Assigned</h5></td>
+              </tr>
+            </div>
+            <ul class="list-group">
+              <li *ngFor="let backlog of backlogsArray;let i=index" 
+                  class="col-md-12 list-group-item">
+                <div class="col-md-1 backlog-index">{{ i+1 }}.</div>
+                <div class="col-md-7 backlog-content">
+                  <h6>{{ backlog.backlog_name | shortbrief:20 }}</h6>
+                  <p>{{ backlog.backlog_description | shortbrief:45 }}</p>
+                </div>
+                <div class="col-md-1 backlog-status">{{ backlog.status }}</div>
+                <div class="col-md-2 backlog-assignee"
+                     *ngIf="backlog.assigned_to">
+                  {{ users[backlog.assigned_to] }}
+                </div>
+                <i class="col-md-1 material-icons delete-icon"
+                   matTooltip="Remove"
+                   (click)="removeBacklog(backlog)">
+                  delete
+                </i>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noBacklogs><h5 style="margin-left: 10px">No Backlogs.</h5></ng-template>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="col-md-11" *ngIf="iteration">
+          <form #addBacklogToIteration="ngForm">
+            <div>
+              <h5>Select Backlog</h5>
+              <select class="form-control"
+                      ngModel
+                      name="addBacklogSelect"
+                      [value]="addBacklogSelectValue">
+                <option value="">Select</option>
+                <option *ngFor="let backlog of allBacklogsArray"
+                        [ngValue]="backlog">
+                  {{ backlog.backlog_name | capitalizeFirst }}
+                </option>
+              </select>
+            </div>
+            <br>
+            <button mat-raised-button color="primary"
+                    (click)="addBacklogInIteration(addBacklogToIteration.value.addBacklogSelect)">
+                  Add
+            </button> 
+          </form>
+          <br><br>
+          <div id="iteration_efforts_data">
+            <button mat-raised-button
+                    class="deleteiteration-btn"
+                    color="warn"
+                    (click)="deleteIteration()">
+              <i class="material-icons close-icon">
+                close
+              </i> Delete iteration
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

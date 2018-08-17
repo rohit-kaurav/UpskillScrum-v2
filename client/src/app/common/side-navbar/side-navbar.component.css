@@ -1,0 +1,47 @@
+.wrapper {
+  width: 100%;
+}
+#sidebar {
+  width: 15%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 999;
+  background: #7386D5;
+  color: #fff;
+  transition: all 0.3s;
+}
+.user-options{
+  height: 85%;
+}
+.navbar-brand,.nav-options{
+  padding-left: 15px;
+  cursor: pointer;
+}
+.user-info{
+  padding-top: 20px;
+  padding-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  background-color: rgba(194, 194, 194, 0.19);;
+}
+.md-48{
+  font-size: 48px;
+}
+.md-20{
+  font-size: 20px;
+}
+.user-info{
+  font-size: 14px;
+}
+.user-icon{
+  color: gray;
+}
+.user-icon,.user-detail,.settings-icon,.signout-icon,.settings-option,.signout-option{
+  padding: 5px;
+  float: left;
+}
+.user-email{
+  color: rgb(161, 160, 160);
+}

@@ -1,0 +1,15 @@
+.projects{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 15%;
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    padding-left: 3%;
+}
+.projects-header{
+    margin-top: 50px;
+}
+.projects-body{
+    margin-top: 35px;
+}

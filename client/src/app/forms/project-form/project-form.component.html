@@ -1,0 +1,85 @@
+<div id="project-form">
+    <snack-bar @popInOut *ngIf="notify" [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+    <h5 *ngIf="!updateProject">Create New Project</h5>
+    <div class="col-md-12">
+      <div
+        @fade
+        *ngIf="mandatory"
+        class="validation-info">
+        <h5>All fields are required and should be valid.</h5>
+      </div>
+      <form [formGroup]="projectForm">
+        <label for="projectname">Project Name</label>
+        <input type="text" 
+               id="project-name" 
+               placeholder="Project Name" 
+               class="form-control" 
+               formControlName="projectname"
+               [value]="updateProject?updateProject.project_name:''">
+        <br>
+        <div @fade 
+             *ngIf="projectname.touched && projectname.invalid"
+             class="validation-info">
+          <ng-container *ngIf="projectname.errors.required">
+            <p>Project name is required.</p>
+          </ng-container>
+          <ng-container *ngIf="!projectname.errors.required && projectname.errors?.alreadyExists">
+            <p>Project name already Exists.</p>
+          </ng-container>
+        </div>
+        <label for="projectdescription">Description</label>
+        <textarea id="projectdescription" 
+                  class="form-control"
+                  formControlName="description"
+                  [value]="updateProject?updateProject.project_description:''"></textarea>
+        <br>
+        <div @fade 
+             *ngIf="description.touched && description.invalid"
+             class="validation-info">
+          <ng-container *ngIf="description.errors.required">
+            <p>Project description is required.</p>
+          </ng-container>
+          <ng-container *ngIf="!description.errors.required && description.errors.minlength">
+            <p>Project description should be minimum {{ description.errors.minlength.requiredLength }} characters.</p>
+          </ng-container>
+          <ng-container *ngIf="description.errors.maxlength">
+              <p>Project description can be maximum upto {{ description.errors.maxlength.requiredLength }} characters.</p>
+          </ng-container>
+        </div>
+        <mat-form-field>
+          <input matInput 
+                 [matDatepicker]="startDatePicker" 
+                 placeholder="Start Date"
+                 formControlName="start_date"
+                 [value]="updateProject?updateProject.start_date:''">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field *ngIf="!updateProject">
+          <input matInput 
+                 [matDatepicker]="endDatePicker" 
+                 placeholder="End Date"
+                 formControlName="estimated_completion_date">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <div *ngIf="currentUser.role=='admin'">
+          <label for="assignee">Assign to</label>
+          <select id="assignee"
+                  formControlName="owned_by"
+                  class="form-control"
+                  [value]="updateProject?updateProject.owned_by:'Unassigned'">
+            <option value="Unassigned" selected disabled>Select</option>
+            <option *ngFor="let manager of allManagers"
+                    [value]="manager.employee_id">
+                {{ manager.name }}
+            </option>      
+          </select>
+        </div>
+        <button *ngIf="!updateProject" mat-raised-button class="submit-btn" (click)="onSubmit()">Add</button>
+        <button *ngIf="updateProject" mat-raised-button class="submit-btn" (click)="onUpdate()">Update</button>
+        <button *ngIf="!updateProject" mat-raised-button class="reset-btn" (click)="resetForm()">Reset</button>
+      </form>
+    </div>
+  </div>

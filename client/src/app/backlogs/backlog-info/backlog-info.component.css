@@ -1,0 +1,100 @@
+#backlog-info-page{
+    position: fixed;
+    width:85%;
+    height: 100%;
+    left: 15%;
+    background-color: rgb(249, 249, 249);
+    padding-left: 1%;
+    padding-top: 1%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Icons */
+.goback-icon{
+    cursor: pointer;
+}
+.edit-icon{
+    color: rgb(160, 160, 160);
+    cursor: pointer;
+}
+.delete-icon{
+    cursor: pointer;
+    color: rgb(235, 65, 65);
+    float: right;
+}
+/* Icons end*/
+
+
+#directory_tag{
+    text-decoration: underline;
+}
+.backlog-body{
+    margin-left: 2px;
+}
+.backlog-details{
+    margin-bottom: 1%;
+    min-height: 290px;
+    /* box-shadow: inset 0px 0px 3px 0px rgb(148, 148, 148);
+    background-color: #fbfbfb; */
+}
+#backlog_stats{
+    color: rgb(141, 141, 141);
+    font-size: 12px;
+}
+#backlog_status{
+    width: 84px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    padding-bottom: 2px;
+}
+#backlog_title,#backlog_description{
+    word-wrap: break-word;
+    color: rgb(71, 71, 71);
+}
+.backlog-details{
+    padding: 1%;
+}
+.backlog-comments{
+    margin-top: 15px;
+}
+.comment-area{
+    max-width: 60%;
+    margin-right: 5px;
+}
+.comment-content{
+    color: rgb(73, 73, 73);
+    font-size: 15px;
+    word-wrap: break-word;
+    margin-top: -5px;
+}
+.comment-created-at{
+    color: rgb(134, 134, 134);
+    font-size: 11px;
+}
+.comment-area,#comment_button{
+    float: left;
+}
+.user-icon{
+    font-size: 45px;
+    color: rgb(92, 92, 92);
+}
+.user-icon,.comment-details{
+    float: left;
+}
+.validation-info{
+    color: #F78181;
+}
+#backlog_efforts_data{
+    font-size: 15px;
+    color: rgb(94, 94, 94);
+}
+.deletebacklog-btn{
+    /* background-color: rgb(235, 65, 65); */
+    color: white;
+}
+#comment_button{
+    background-color: #455a64;
+    color: white;
+}

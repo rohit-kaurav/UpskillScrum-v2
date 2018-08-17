@@ -1,0 +1,9 @@
+<i class="material-icons close-icon" (click)="closeDialog()">
+    close
+  </i>
+  <h2 mat-dialog-title>
+    {{ user.name | capitalizeFirst | shortbrief:30 }}
+  </h2>
+  <mat-dialog-content>
+    <user-form [userData]="user" (updateFlag)="userUpdateFlag($event)"></user-form>
+  </mat-dialog-content>

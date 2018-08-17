@@ -1,0 +1,25 @@
+.users{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 15%;
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    padding-left: 3%;
+}
+.users-header{
+    margin-top: 50px;
+}
+.users-body{
+    margin-top: 35px;
+}
+.adduser-btn{
+    margin-bottom: 15px;
+}
+.add-icon{
+    margin-left: -10px;
+    font-size: 30px;
+}
+.goback-icon{
+    cursor: pointer;
+}

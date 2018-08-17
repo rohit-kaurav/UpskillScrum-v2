@@ -1,0 +1,61 @@
+<div id="project-page">
+  <div class="row" *ngIf="project">
+    <div class="col-md-9 project-body">
+      <div class="row project-info">
+        <div class="col-md-11 project-details">
+          <p id="directory_tag">Project ></p>
+          <h2 id="project_name">{{ project.project_name }}
+             <i class="material-icons edit-icon"
+                *ngIf="currentUser.role!='employee'"
+                (click)="editProject()"
+                matTooltip="Edit"
+                matTooltipPosition="right">
+               edit
+            </i>
+          </h2>
+          <p id="project_stats">Updated: {{ project.date_modified | date:'medium':'-000'}}</p>
+          <p id="project_status" [style.backgroundColor]="statusColor">{{ project.status }}</p>
+          <p id="project_description">{{ project.project_description }}</p>
+        </div>
+      </div>
+      <div class="row project-sections">
+        <div class="col-md-11">
+          <mat-tab-group>
+            <mat-tab label="Backlogs">
+              <backlogs [project]="project"></backlogs>
+            </mat-tab>
+            <mat-tab *ngIf="currentUser.role!='employee'" label="Iterations">
+              <iterations [project]="project"></iterations>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 project-activity">
+      <div class="mat-elevation-z4">
+        <h4 id="project_activity_head">
+          Activity
+        </h4>
+        <div id="project_activity_body">
+          <ul class="list-group">
+            <li class="list-group-item project_activity_item"
+                *ngFor="let activity of activityArray">
+              <div>
+                <p class="activity-content">
+                  <span *ngIf="currentUser.employee_id!=activity.author" class="activity-author">{{ users[activity.author] }}</span>
+                  <span *ngIf="currentUser.employee_id==activity.author" class="activity-author">You</span>
+                  {{ activity.content }}
+                </p>
+                <p class="activity-timestamp">{{ activity.created_at | date:'medium':'-000' }} </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <backlogs *ngIf="projectOption=='backlogs'" [backlogsArray]="backlogs" [projectName]="project_name" [projectUid]="project_uid" [projectStatus]="project.status"></backlogs>
+    <iterations *ngIf="projectOption=='iterations'" [iterationsArray]="iterations"  [projectName]="project_name" [projectUid]="project_uid" [projectStatus]="project.status"></iterations>
+    <not-found *ngIf="!backlogs.length && currentUser.role!='manager'" message="No Backlogs assigned yet."></not-found> -->

@@ -1,0 +1,49 @@
+<div id="backlogs">
+  <div class="col-md-12">
+    <div class="row backlogs-header" *ngIf="currentUser.role!='employee'">
+      <div>
+        <button mat-raised-button 
+                color="primary"
+                (click)="addBacklog()">
+          <i class="material-icons add-icon">add</i>
+          Backlog
+        </button>
+      </div>
+    </div>
+    <div class="row backlogs-body">
+      <div class="col-md-12" *ngIf="notify">
+        <br>
+        <snack-bar @popInOut [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+      </div>
+      <div *ngIf="backlogsArray.length"
+           class="col-md-12">
+        <br>
+        <div class="col-md-12 list-head">
+          <tr style="font-size: 17px">
+            <td style="width: 525px;padding-left: 55px"><h5>Backlog Description</h5></td>
+            <td style="width: 135px"><h5>Status</h5></td>
+            <td style="width: 130px" *ngIf="currentUser.role=='manager'"><h5>Assigned</h5></td>
+          </tr>
+        </div>    
+        <a *ngFor="let backlog of backlogsArray;let i=index" 
+           class="col-md-12 list-items"
+           [routerLink]="['/project',project.project_name,'backlog',backlog.backlog_uid]">
+          <div class="row">
+            <div class="col-md-1 backlog-index">{{ i+1 }}.</div>
+            <div class="col-md-6 backlog-content">
+              <h6>{{ backlog.backlog_name | shortbrief:20}}</h6>
+              <p>{{ backlog.backlog_description | shortbrief:45 }}</p>
+            </div>
+            <div class="col-md-2 backlog-status">{{ backlog.status }}</div>
+            <div class="col-md-2 backlog-assignee"
+                *ngIf="backlog.assigned_to && currentUser.role=='manager'">
+              {{ users[backlog.assigned_to] }}
+            </div>
+          </div>
+          <hr>
+        </a>
+      </div>
+      <not-found *ngIf="!backlogsArray.length" message="No Backlogs found."></not-found>
+    </div>
+  </div>
+</div>

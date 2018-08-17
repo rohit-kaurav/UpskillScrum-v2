@@ -1,0 +1,49 @@
+#my-account{
+    position: fixed;
+    width: 100%;
+    left: 15%;
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    padding-left: 3%;
+    padding-top: 2%;
+    overflow-y: auto;
+}
+.user-account-details{
+    padding-left: 2%;
+    padding-top: 2%;
+    padding-bottom: 3%;
+}
+.info-items{
+    margin-bottom: 10px;
+}
+.submit-btn{
+    background-color: #2C3E50;
+    color: white;
+}
+.reset-btn{
+    background-color: rgb(206, 63, 122);
+    color: white;
+}
+.password-form-btn{
+    background-color: #839192;
+    margin-bottom: 1%;
+    color: white;
+}
+.validation-info{
+    text-align: left;
+    padding-left: 10px;
+    margin-top: 11px;
+    color: #F78181;
+    font-family: 'Times New Roman', Times, serif;
+}
+.form-control.ng-invalid.ng-touched{
+    border: 1.5px solid #F78181;
+}
+.password-change-form{
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+.goback-icon{
+    margin-top: 1%;
+    cursor: pointer;
+}

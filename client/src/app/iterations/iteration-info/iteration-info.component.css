@@ -1,0 +1,104 @@
+#iteration-info-page{
+    position: fixed;
+    width:85%;
+    height: 100%;
+    left: 15%;
+    background-color: rgb(249, 249, 249);
+    padding-left: 1%;
+    padding-top: 1%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Icons */
+.goback-icon{
+    cursor: pointer;
+}
+.edit-icon{
+    color: rgb(160, 160, 160);
+    cursor: pointer;
+}
+.delete-icon{
+    cursor: pointer;
+    color: rgb(235, 65, 65);
+    float: right;
+}
+/* Icons end*/
+
+
+#directory_tag{
+    text-decoration: underline;
+}
+.iteration-body{
+    margin-left: 2px;
+}
+.iteration-details{
+    margin-bottom: 1%;
+    min-height: 290px;
+    /* box-shadow: inset 0px 0px 3px 0px rgb(148, 148, 148);
+    background-color: #fbfbfb; */
+}
+#iteration_stats{
+    color: rgb(141, 141, 141);
+    font-size: 12px;
+}
+#iteration_status{
+    width: 84px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    padding-bottom: 2px;
+}
+#iteration_title,#iteration_description{
+    word-wrap: break-word;
+    color: rgb(71, 71, 71);
+}
+.iteration-details{
+    padding: 1%;
+}
+.iteration-comments{
+    margin-top: 15px;
+}
+#noBacklogs{
+    margin-left: 25px;
+}
+#iteration_efforts_data{
+    font-size: 15px;
+    color: rgb(94, 94, 94);
+}
+.deleteiteration-btn{
+    color: white;
+}
+#comment_button{
+    background-color: #455a64;
+    color: white;
+}
+
+.iteration-backloglist{
+    max-height: 430px;
+    overflow-y: auto;
+}
+.list-head{
+    padding-top: 10px;
+    padding-bottom: 6px;
+    border-radius: 2px;
+    background-color: rgb(177, 177, 177,.2);
+}
+.list-group{
+    width: 800px;
+}
+.list-items{
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+    color: rgb(75, 74, 74);
+}
+.backlog-index{
+    margin-top: 7px;
+}
+.backlog-assignee{
+    text-align: center;
+}
+.backlog-index,.backlog-content,.delete-icon,.backlog-status,.backlog-assignee{
+    float: left;
+}

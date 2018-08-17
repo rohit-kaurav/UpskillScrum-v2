@@ -1,0 +1,86 @@
+<div id="backlog-form">
+  <snack-bar @popInOut *ngIf="notify" [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+  <div class="col-md-12">
+    <div @fade *ngIf="mandatory" class="validation-info">
+      <h5>All fields are required and should be valid.</h5>
+    </div>
+    <form [formGroup]="backlogForm">
+      <label for="backlogname">Backlog Name</label>
+      <input 
+        type="text" 
+        id="backlog-name" 
+        placeholder="backlog Name" 
+        class="form-control" 
+        formControlName="backlogname">
+      <br/>
+      <div @fade 
+          *ngIf="backlogname.touched && backlogname.invalid" 
+          class="validation-info">
+        <ng-container *ngIf="backlogname.errors.required">
+          <p>Backlog name is required.</p>
+        </ng-container>
+        <ng-container *ngIf="!backlogname.errors.required && backlogname.errors?.alreadyExists">
+          <p>Backlog name already Exists.</p>
+        </ng-container>
+      </div>
+      <label for="backlogdescription">Description</label>
+      <textarea 
+        id="backlogdescription" 
+        class="form-control" 
+        formControlName="description"></textarea>
+      <br/>
+      <div @fade 
+          *ngIf="description.touched && description.invalid" 
+          class="validation-info">
+        <ng-container *ngIf="description.errors.required">
+          <p>Backlog description is required.</p>
+        </ng-container>
+        <ng-container *ngIf="!description.errors.required && description.errors.minlength">
+          <p>Backlog description should be minimum {{ description.errors.minlength.requiredLength }} characters.</p>
+        </ng-container>
+        <ng-container *ngIf="description.errors.maxlength">
+          <p>Backlog description can be maximum upto {{ description.errors.maxlength.requiredLength }} characters.</p>
+        </ng-container>
+      </div>
+      <mat-form-field *ngIf="!updateBacklogData">
+        <input matInput [matDatepicker]="startdate" formControlName="startdate" placeholder="Start Date">
+        <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+        <mat-datepicker #startdate></mat-datepicker>
+      </mat-form-field>
+      <div @fade 
+          *ngIf="startdate.touched && startdate.invalid" 
+          class="validation-info">
+        <ng-container *ngIf="startdate.errors.required">
+          <p>Backlog Startdate is required.</p>
+        </ng-container>
+      </div>
+
+      <mat-form-field *ngIf="!updateBacklogData">
+        <input matInput [matDatepicker]="enddate" formControlName="enddate" placeholder="End Date">
+        <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
+        <mat-datepicker #enddate></mat-datepicker>
+      </mat-form-field>
+      <div @fade 
+          *ngIf="enddate.touched && enddate.invalid" 
+          class="validation-info">
+        <ng-container *ngIf="enddate.errors.required">
+          <p>Backlog Enddate is required.</p>
+        </ng-container>
+      </div>
+      <input *ngIf="!updateBacklogData"
+             class="form-control"
+             formControlName="estimatedefforts"
+             placeholder="Estimated efforts(hours)">
+      <div @fade 
+          *ngIf="estimatedefforts.touched && estimatedefforts.invalid" 
+          class="validation-info">
+        <ng-container *ngIf="estimatedefforts.errors.required">
+          <p>Backlog Estimated Efforts is required.</p>
+        </ng-container>
+      </div>
+      <br>
+      <button *ngIf="!updateBacklogData" mat-raised-button color="primary" (click)="onSubmit()">Add</button>
+      <button *ngIf="updateBacklogData" mat-raised-button color="primary" (click)="updateBacklog()">Update</button>
+    </form>
+  </div>
+</div>

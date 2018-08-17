@@ -1,0 +1,39 @@
+.project-item{
+    cursor: pointer;
+}
+.mat-column-project_name{
+    flex: 3;
+    padding-right: 20px;
+}
+.table-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}  
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.mat-table {
+    overflow: auto;
+    height: 400px;
+} 
+.mat-header-cell.mat-sort-header-sorted {
+    color: black;
+}
+.remove-icon,.edit-icon{
+    float: left;
+    font-size: 18px;
+    cursor: pointer;
+}
+.remove-icon{
+    margin-right: 10px;
+    color: rgb(241, 61, 61);
+}
+.edit-icon{
+    color: rgb(83, 83, 83);
+}

@@ -1,0 +1,26 @@
+.dashboard{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 15%;
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    padding-left: 3%;
+    overflow-y: auto;
+}
+.dashboard-header{
+    margin-top: 50px;
+}
+.dashboard-body{
+    margin-top: 35px;
+}
+.addproject-btn{
+    margin-bottom: 15px;
+}
+.add-icon{
+    margin-left: -10px;
+    font-size: 30px;
+}
+.goback-icon{
+    cursor: pointer;
+}

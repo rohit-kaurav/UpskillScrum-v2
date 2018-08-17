@@ -1,0 +1,10 @@
+.close-icon{
+    float: right;
+    cursor: pointer;
+    margin-top: -20px;
+    margin-right: -20px;
+    color: rgb(170, 167, 167);
+}
+h2{
+    word-break: break-all;
+}

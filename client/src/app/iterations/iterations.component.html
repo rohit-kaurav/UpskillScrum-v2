@@ -1,0 +1,44 @@
+<div id="iterations">
+    <div class="col-md-12">
+      <div class="row iterations-header">
+        <div>
+          <button mat-raised-button 
+                  color="primary"
+                  (click)="addIteration()">
+            <i class="material-icons add-icon">add</i>
+            Iteration
+          </button>
+        </div>
+      </div>
+      <div class="row iterations-body">
+        <div class="col-md-12" *ngIf="notify">
+          <br>
+          <snack-bar @popInOut [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+        </div>
+        <div *ngIf="iterationsArray.length"
+             class="col-md-12">
+          <br>
+          <div class="col-md-12 list-head">
+            <tr style="font-size: 17px">
+              <td style="width: 595px;padding-left: 55px"><h5>Iteration Description</h5></td>
+              <td style="width: 123px"><h5>Status</h5></td>
+            </tr>
+          </div>    
+          <a *ngFor="let iteration of iterationsArray;let i=index" 
+             class="col-md-12 list-items"
+             [routerLink]="['/project',project.project_name,'iteration',iteration.iteration_uid]">
+            <div class="row">
+              <div class="col-md-1 iteration-index">{{ i+1 }}.</div>
+              <div class="col-md-7 iteration-content">
+                <h6>{{ iteration.iteration_name | shortbrief:20}}</h6>
+                <p>{{ iteration.iteration_description | shortbrief:45 }}</p>
+              </div>
+              <div class="col-md-2 iteration-status">{{ iteration.status }}</div>
+            </div>
+            <hr>
+          </a>
+        </div>
+        <not-found *ngIf="!iterationsArray.length" message="No Iterations found."></not-found>
+      </div>
+    </div>
+  </div>

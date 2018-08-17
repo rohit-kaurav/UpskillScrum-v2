@@ -1,0 +1,50 @@
+<div id="iteration-form">
+    <snack-bar @popInOut *ngIf="notify" [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+    <div class="col-md-12">
+      <div @fade *ngIf="mandatory" class="validation-info">
+        <h5>All fields are required and should be valid.</h5>
+      </div>
+      <form [formGroup]="iterationForm">
+        <label for="iterationname">Iteration Name</label>
+        <input 
+          type="text" 
+          id="iteration-name" 
+          placeholder="Iteration Name" 
+          class="form-control" 
+          formControlName="iterationname">
+        <br/>
+        <div @fade 
+            *ngIf="iterationname.touched && iterationname.invalid" 
+            class="validation-info">
+          <ng-container *ngIf="iterationname.errors.required">
+            <p>Iteration name is required.</p>
+          </ng-container>
+          <ng-container *ngIf="!iterationname.errors.required && iterationname.errors?.alreadyExists">
+            <p>Iteration name already Exists.</p>
+          </ng-container>
+        </div>
+        <label for="iterationdescription">Description</label>
+        <textarea 
+          id="iterationdescription" 
+          class="form-control" 
+          formControlName="description"></textarea>
+        <br/>
+        <div @fade 
+            *ngIf="description.touched && description.invalid" 
+            class="validation-info">
+          <ng-container *ngIf="description.errors.required">
+            <p>Iteration description is required.</p>
+          </ng-container>
+          <ng-container *ngIf="!description.errors.required && description.errors.minlength">
+            <p>Iteration description should be minimum {{ description.errors.minlength.requiredLength }} characters.</p>
+          </ng-container>
+          <ng-container *ngIf="description.errors.maxlength">
+            <p>Iteration description can be maximum upto {{ description.errors.maxlength.requiredLength }} characters.</p>
+          </ng-container>
+        </div>
+        <br>
+        <button *ngIf="!updateIterationData" mat-raised-button color="primary" (click)="onSubmit()">Add</button>
+        <button *ngIf="updateIterationData" mat-raised-button color="primary" (click)="updateIteration()">Update</button>
+      </form>
+    </div>
+  </div>

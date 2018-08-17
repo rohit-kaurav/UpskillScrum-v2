@@ -1,0 +1,27 @@
+#iterations{
+    padding: 1%;
+    max-height: 380px;
+    overflow-y: auto;
+}
+hr{
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+.list-head{
+    padding-top: 10px;
+    padding-bottom: 6px;
+    border-radius: 2px;
+    background-color: rgb(177, 177, 177,.2);
+}
+.list-items{
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+    color: rgb(75, 74, 74);
+}
+.iteration-index{
+    margin-top: 7px;
+}
+.iteration-status,.iteration-assignee{
+    text-align: center;
+}

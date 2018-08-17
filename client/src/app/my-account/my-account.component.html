@@ -1,0 +1,174 @@
+<div id="my-account">
+  <h1>My Account</h1>
+  
+  <div class="row">
+
+    <div class="col-md-8 mat-elevation-z4 user-account-details" *ngIf="!changePasswordFlag">
+      <snack-bar [@popInOut] *ngIf="notify" [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+      <button mat-raised-button class="password-form-btn" (click)="changePasswordFlag=!changePasswordFlag">Change Password</button>
+      <form [formGroup]="updateUserForm">
+        <div class="info-items">
+          <h6>Name </h6>
+          <input class="form-control col-md-4"
+                  formControlName="name" 
+                  [value]="currentUser.name">
+          <div @fade
+                *ngIf="name.touched && name.invalid"
+                class="validation-info">
+            <ng-container *ngIf="name.errors.required">
+              <p>Name is required.</p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="info-items">
+          <h6>Username</h6>
+          <input class="form-control col-md-4"
+                  formControlName="username"
+                  [value]="currentUser.username">
+          <div @fade
+              *ngIf="username.touched && username.invalid"
+              class="validation-info">
+            <ng-container *ngIf="username.errors.required">
+              <p>Username is required.</p>
+            </ng-container>
+            <ng-container *ngIf="username.errors.minlength">
+              <p>Username must be atleast {{ username.errors.minlength.requiredLength }} characters.</p>
+            </ng-container>
+            <ng-container *ngIf="username.errors.alreadyExists && !username.errors.minlength && !username.errors.required">
+              <p>Username already taken.</p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="info-items">
+          <h6>Employee ID</h6>
+          <input class="form-control col-md-4"
+                  formControlName="employeeid"
+                  [value]="currentUser.employee_id">
+        </div>
+        <div class="info-items">
+          <h6>Email</h6>
+          <input class="form-control col-md-4"
+                  formControlName="email"
+                  [value]="currentUser.email">
+          <div @fade
+              *ngIf="email.touched && email.invalid"
+              class="validation-info">
+            <ng-container *ngIf="email.errors.required">
+              <p>Email is required.</p>
+            </ng-container>
+            <ng-container *ngIf="!email.errors.required && email.errors?.emailAlreadyExists">
+              <p>Email already exists.</p>
+            </ng-container>
+          </div>
+        </div>
+  
+        <div class="info-items">
+          <mat-form-field>
+            <input matInput 
+                    [matDatepicker]="picker" 
+                    placeholder="Date of Birth"
+                    formControlName="dob"
+                    [value]="currentUser.dob">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+  
+        <div class="info-items">
+          <h6>Contact No.</h6>
+          <input class="form-control col-md-4"
+                  formControlName="phone"
+                  [value]="currentUser.phone">
+          <div @fade
+              *ngIf="phone.touched && phone.invalid"
+              class="validation-info">
+            <ng-container *ngIf="phone.errors.required">
+              <p>Contact No. is required.</p>
+            </ng-container>
+            <ng-container *ngIf="!phone.errors.required && phone.errors?.phoneAlreadyExists">
+              <p>Contact No. already exists.</p>
+            </ng-container>
+          </div>
+        </div>
+  
+        <div class="info-items">
+          <button mat-raised-button class="submit-btn" (click)="onSubmit()">Update</button>
+          <button mat-raised-button class="reset-btn" (click)="resetForm()">Reset</button>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="col-md-8 mat-elevation-z4" *ngIf="changePasswordFlag">
+
+      <div *ngIf="changePasswordFlag">
+        <i class="material-icons goback-icon" (click)="changePasswordFlag=!changePasswordFlag">
+            keyboard_backspace
+        </i>
+      </div>
+      <snack-bar [@popInOut] *ngIf="notify" [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+      <form [formGroup]="passwordForm" class="password-change-form">
+        <div class="info-items">
+          <h6>Current Password</h6>
+          <input type="password"
+                  *ngIf="changePasswordFlag"
+                  placeholder="Current Password" 
+                  class="col-md-4 form-control"
+                  formControlName="currentpassword">
+          <div @fade
+              *ngIf="currentpassword.touched && currentpassword.invalid"
+              class="validation-info">
+            <ng-container *ngIf="currentpassword.errors.required">
+              <p>Password is required.</p>
+            </ng-container>
+            <ng-container *ngIf="!currentpassword.errors.required && currentpassword.errors?.invalidPassword">
+              <p>Invalid Password!</p>
+            </ng-container>
+          </div>
+        </div>
+        <div formGroupName="passwordgroup" *ngIf="currentpassword.valid && changePasswordFlag">
+          <div class="info-items">
+            <h6>New Password</h6>
+            <input type="password"
+                   placeholder="New Password" 
+                   class="col-md-4 form-control"
+                   formControlName="password">
+            <div @fade
+                *ngIf="password.touched && password.invalid"
+                class="validation-info">
+                <ng-container *ngIf="password.errors.required">
+                  <p>Password is required.</p>
+                </ng-container>
+                <ng-container *ngIf="password.errors.minlength">
+                  <p>Password must be atleast {{ password.errors.minlength.requiredLength }} characters.</p>
+                </ng-container>
+            </div>
+          </div>
+          <div class="info-items" *ngIf="password.valid">
+            <h6>Confirm Password</h6>
+            <input type="password"
+                   placeholder="Confirm Password" 
+                   class="col-md-4 form-control"
+                   formControlName="confirmpassword">
+            <div @fade
+                *ngIf="confirmpassword.touched && passwordgroup.invalid"
+                class="validation-info">
+              <ng-container *ngIf="confirmpassword.errors?.required">
+                <p>Re-enter Password.</p>
+              </ng-container>
+              <ng-container *ngIf="!confirmpassword.errors?.required && passwordgroup.errors?.passwordsDontMatch">
+                <p>Passwords donot match.</p>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="info-items">
+          <button mat-raised-button class="submit-btn" (click)="onSubmitPassword()">Update</button>
+          <button mat-raised-button class="reset-btn" (click)="resetPasswordForm()">Reset</button>
+        </div>
+      </form>
+      
+    </div>
+
+  </div>
+</div>

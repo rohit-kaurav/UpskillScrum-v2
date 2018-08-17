@@ -1,0 +1,14 @@
+<div id="login-section">
+</div>
+<div class="container col-md-3" id="login-form">
+  <form [formGroup]='loginform' (ngSubmit)="onSubmit()">
+    <div *ngIf="invalidLoginFlag" class="alert alert-danger">
+      Invalid Username/Password!
+    </div>
+    <input class="form-control login-fields" placeholder="Username" formControlName="username">
+    <br/>
+    <input class="form-control login-fields" placeholder="Password" formControlName="password" type="password">
+    <br/>
+    <button class="btn" type="submit">Sign In</button>
+  </form>
+</div>

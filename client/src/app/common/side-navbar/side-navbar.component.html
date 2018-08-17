@@ -1,0 +1,37 @@
+<div class="wrapper">
+  <nav class="navbar-dark bg-dark" id="sidebar">
+    <ul class="navbar-nav user-options">
+      <a class="navbar-brand" routerLink="/">UpskillScrum</a>
+      <li class="nav-item user-info">
+        <i class="material-icons md-48 user-icon">account_circle</i>
+        <div class="user-detail">
+          <h5 class="user-name">{{ currentUser.name | capitalizeFirst }}</h5>
+          <p class="user-email">{{ currentUser.email }}</p>
+        </div>
+      </li>
+      <li class="nav-item nav-options" *ngIf="currentUser.role == 'admin'">
+        <a class="nav-link" routerLink="/admin/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item nav-options" *ngIf="currentUser.role == 'admin'">
+        <a class="nav-link" routerLink="/admin/users">Users,Roles & Permissions</a>
+      </li>
+      <li class="nav-item nav-options" *ngIf="currentUser.role != 'admin'">
+        <a class="nav-link" routerLink="/projects">Projects</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav account-options">
+      <li class="nav-item nav-options">
+        <a class="nav-link" routerLink="/my-account">
+          <i class="material-icons md-20 settings-icon">settings</i>
+          <h6 class="settings-option">Settings</h6>
+        </a>
+      </li>
+      <li class="nav-item nav-options">
+        <a (click)="signOut()" class="nav-link">
+          <i class="material-icons md-20 signout-icon">exit_to_app</i>
+          <h6 class="signout-option">Sign Out</h6>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

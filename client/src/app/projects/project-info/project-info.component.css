@@ -1,0 +1,79 @@
+#project-page{
+    position: fixed;
+    width:85%;
+    height: 100%;
+    left: 15%;
+    background-color: rgb(249, 249, 249);
+    padding-left: 1%;
+    padding-top: 1%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#directory_tag{
+    text-decoration: underline;
+}
+.project-body{
+    height: 100%;
+}
+#project_description{
+    min-height: 70%;
+}
+.project-activity{
+}
+#project_activity_head{
+    text-align: center;
+}
+#project_activity_body{
+    max-height: 800px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+.project-body,.project-activity{
+    padding: 10px;
+}
+.project-info{
+    margin-bottom: 1%;
+    min-height: 290px;
+    /* box-shadow: inset 0px 0px 3px 0px rgb(148, 148, 148);
+    background-color: white; */
+}
+.project-details{
+    padding: 15px;
+}
+.project-info,.project-sections{
+    margin-left: 1%;
+}
+#project_name,#project_description{
+    word-wrap: break-word;
+}
+#project_stats{
+    color: rgb(141, 141, 141);
+    font-size: 12px;
+}
+#project_status{
+    width: 84px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    padding-bottom: 2px;
+}
+.edit-icon{
+    color: rgb(160, 160, 160);
+    cursor: pointer;
+}
+.list-group-item{
+    
+}
+.activity-content{
+    font-size: 14px;
+}
+.activity-author{
+    font-weight: bolder;
+}
+.activity-timestamp{
+    font-size: 9px;
+    color: rgb(163, 163, 163);
+}
+.activity-content,.activity-timestamp{
+    margin-bottom: 0px;
+}

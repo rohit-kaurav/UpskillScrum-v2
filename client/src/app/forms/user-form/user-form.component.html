@@ -1,0 +1,148 @@
+<div id="user-form">
+    <h5 *ngIf="!updateUserData">Add New User</h5>
+    <snack-bar [@popInOut] *ngIf="notify" [snackText]="notifyText" [snackType]="notifyType"></snack-bar>
+    <div class="row">
+      <div class="col-md-6">
+        <div @fade
+            *ngIf="mandatory"
+            class="validation-info">
+          <h5>All fields are mandatory & must be Valid.</h5>
+        </div>
+        <form [formGroup]='userForm'>
+          <input *ngIf="!updateUserData"
+                 placeholder="Name"
+                 class="form-control"
+                 formControlName="name">
+          <div @fade
+              *ngIf="name.touched && name.invalid"
+              class="validation-info">
+            <ng-container *ngIf="name.touched">
+              <ng-container *ngIf="name.errors.required">
+                <p>Name is required.</p>
+              </ng-container>
+            </ng-container>
+          </div>
+    
+          <input *ngIf="!updateUserData"
+                 placeholder="Username" 
+                 class="form-control login-fields"
+                 formControlName="username">
+          
+          <div formGroupName="passwordgroup">
+            <input *ngIf="!updateUserData"
+                   type="password"
+                   placeholder="Password" 
+                   class="form-control login-fields"
+                   formControlName="password">
+            <div @fade
+                 *ngIf="username.touched && username.invalid"
+                 class="validation-info">
+                <ng-container *ngIf="username.errors.required">
+                  <p>Username is required.</p>
+                </ng-container>
+                <ng-container *ngIf="username.errors.minlength">
+                  <p>Username must be atleast {{ username.errors.minlength.requiredLength }} characters.</p>
+                </ng-container>
+                <ng-container *ngIf="username.errors.alreadyExists && !username.errors.minlength && !username.errors.required">
+                  <p>Username already taken.</p>
+                </ng-container>
+            </div>
+            <div @fade
+                *ngIf="password.touched && password.invalid"
+                class="validation-info">
+              <ng-container *ngIf="password.touched">
+                <ng-container *ngIf="password.errors.required">
+                  <p>Password is required.</p>
+                </ng-container>
+                <ng-container *ngIf="password.errors.minlength">
+                  <p>Password must be atleast {{ password.errors.minlength.requiredLength }} characters.</p>
+                </ng-container>
+              </ng-container>
+            </div>
+            <input *ngIf="!updateUserData&&password.valid"
+                   type="password"
+                   placeholder="Confirm Password" 
+                   class="form-control"
+                   formControlName="confirmpassword">
+          </div>
+          <div @fade
+              *ngIf="confirmpassword.touched && passwordgroup.invalid"
+              class="validation-info">
+            <ng-container *ngIf="confirmpassword.errors?.required">
+              <p>Re-enter Password.</p>
+            </ng-container>
+            <ng-container *ngIf="!confirmpassword.errors?.required && passwordgroup.errors?.passwordsDontMatch">
+              <p>Passwords donot match.</p>
+            </ng-container>
+          </div>
+          
+          <p>Select Role</p>
+          <select class="form-control"
+                  formControlName="role">
+            <option value="employee" selected>Employee</option>      
+            <option value="manager">Manager</option>
+          </select>
+
+          <input *ngIf="!updateUserData"
+                 placeholder="Employee ID"
+                 class="form-control"
+                 formControlName="employeeid">
+          <div @fade
+              *ngIf="employeeid.touched && employeeid.invalid"
+              class="validation-info">
+              <ng-container *ngIf="employeeid.errors.required">
+                <p>Employee ID is required.</p>
+              </ng-container>
+              <ng-container *ngIf="!employeeid.errors.required && employeeid.errors?.employeeIdAlreadyExists">
+                <p>Employee ID already exists.</p>
+              </ng-container>
+          </div>
+          
+          <mat-form-field *ngIf="!updateUserData">
+            <input matInput 
+                   [matDatepicker]="picker" 
+                   placeholder="Date of Birth"
+                   formControlName="dob">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <input *ngIf="!updateUserData"
+                 placeholder="example@domain.com"
+                 class="form-control"
+                 formControlName="email">
+          <div @fade
+               *ngIf="email.touched && email.invalid"
+               class="validation-info">
+            <ng-container *ngIf="email.errors.required">
+              <p>Email is required.</p>
+            </ng-container>
+            <ng-container *ngIf="!email.errors.required && email.errors?.emailAlreadyExists">
+              <p>Email already exists.</p>
+            </ng-container>
+          </div>
+          
+          <input *ngIf="!updateUserData"
+                 placeholder="Phone"
+                 class="form-control"
+                 formControlName="phone">
+          <div @fade
+               *ngIf="phone.touched && phone.invalid"
+               class="validation-info">
+            <ng-container *ngIf="phone.errors.required">
+              <p>Contact No. is required.</p>
+            </ng-container>
+            <ng-container *ngIf="!phone.errors.required && phone.errors?.phoneAlreadyExists">
+              <p>Contact No. already exists.</p>
+            </ng-container>
+          </div>
+
+          <button *ngIf="!updateUserData" mat-raised-button color="primary" (click)="onSubmit()">Add</button>
+          <button *ngIf="updateUserData" mat-raised-button color="primary" (click)="updateUser()">Update</button>
+        </form>
+      </div>
+      <div class="col-md-6" *ngIf="!updateUserData">
+        <i class="material-icons user-icon">account_box</i>
+      </div>
+    </div>
+  </div>

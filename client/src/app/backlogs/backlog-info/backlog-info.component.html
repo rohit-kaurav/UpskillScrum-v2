@@ -1,0 +1,148 @@
+<div id="backlog-info-page">
+  <i class="material-icons goback-icon"
+     *ngIf="backlog"
+     [routerLink]="['/project',backlog.project_uid]"
+     matTooltip="return"
+     matTooltipPosition="right">
+    keyboard_backspace
+  </i>
+  <div class="row backlog-body">
+    <div class="col-md-9">
+      <div class="row backlog-details">
+        <div class="col-md-12" *ngIf="backlog">
+          <p id="directory_tag">Project > Backlog</p>
+          <h4 id="backlog_title">{{ backlog.backlog_name }} 
+            <i class="material-icons edit-icon"
+               matTooltip="Edit"
+               matTooltipPosition="right"
+               (click)="editBacklog()">
+              edit
+            </i>
+          </h4>
+          <p id="backlog_stats">
+            Created : {{ backlog.created_at | date:'medium':'-000' }} || Updated : {{ backlog.date_modified | date:'medium':'-000' }}
+          </p>
+          <p id="backlog_status" [style.backgroundColor]="statusColor">{{ backlog.status }}</p>
+          <p id="backlog_iteration">Iteration : {{ iterations[backlog.iteration_uid] || "No Iteration" }}</p>
+          <p id="backlog_description">{{ backlog.backlog_description }}</p>
+        </div>
+      </div>
+      <div class="row backlog-comments">
+        <div class="col-md-12 backlog-comments-body">
+          <div>
+            <form #commentForm="ngForm" class="form-group" (ngSubmit)="addComment(commentForm.form)">
+              <textarea [(ngModel)]="commentText"
+                        required
+                        class="form-control comment-area"
+                        placeholder="Add your comments here..."
+                        name="commentText">
+              </textarea>
+              <button mat-raised-button id="comment_button">Send</button>
+            </form>
+          </div>
+          <br><br><br><br>
+          <div @fade
+               *ngIf="invalidForm"
+               class="validation-info">
+            <p>Comment cannot be empty.</p>
+          </div>
+          <br>
+          <div *ngIf="backlog && commentsArray.length;else noComments">
+            <ul class="list-group">
+              <li *ngFor="let comment of commentsArray"
+                  class="list-group-item">
+                <i class="col-md-1 material-icons user-icon">account_circle</i>
+                <div class="col-md-11 comment-details">
+                  <div>
+                    <h6 class="comment-author" *ngIf="comment.author!=currentUser.username;else selfComment">
+                      {{ users[comment.author] }}
+                    </h6>
+                    <ng-template #selfComment>
+                      <h6>
+                        You
+                      </h6>
+                    </ng-template>
+                    <i class="material-icons delete-icon"
+                       matTooltip="Delete"
+                       matTooltipPosition="above"
+                       *ngIf="comment.author==currentUser.employee_id"
+                       (click)="deleteComment(comment.comment_uid)">
+                      delete
+                    </i>
+                  </div>
+                  <p class="comment-created-at">{{ comment.created_at | date:'medium':'-000' }}</p>
+                  <p class="comment-content">{{ comment.content }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noComments>No Comments yet.</ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="col-md-11" *ngIf="backlog">
+        <form [formGroup]="updateBacklogForm" (ngSubmit)="updateBacklogStatusAndAssignee()">
+          <div *ngIf="currentUser.role!='employee'">
+            <h5>Assign to</h5>
+            <select class="form-control"
+                    formControlName="assignee"
+                    [value]="backlog?backlog.assigned_to:'Unassigned'">
+              <option value="Unassigned" disabled>Select</option>
+              <option *ngFor="let employee of allEmployees"
+                      [value]="employee.employee_id">
+                {{ employee.name | capitalizeFirst}}
+              </option>
+            </select>
+          </div>
+          <br><br>
+          <div>
+            <h5>Status</h5>
+            <ng-container *ngIf="backlog.status!='In Progress'">
+              <label>
+                <input type="radio"
+                        formControlName="backlogstatus"
+                        value="In Progress"
+                        name="backlogstatus">
+                In Progress
+              </label><br>
+            </ng-container>
+            <ng-container *ngIf="backlog.status!='Completed'">
+              <label>
+                <input type="radio"
+                        formControlName="backlogstatus"
+                        value="Completed"
+                        name="backlogstatus">
+                    Completed
+              </label><br>
+            </ng-container>
+            <ng-container *ngIf="backlog.status!='Hold'">
+              <label>
+                <input type="radio"
+                       formControlName="backlogstatus"
+                       value="Hold"
+                       name="backlogstatus">
+                    Hold
+              </label>
+            </ng-container>
+          </div>
+          <br>
+          <button mat-raised-button color="primary">Update</button>        
+        </form>
+        <br><br>
+        <div id="backlog_efforts_data">
+          <p>Planned start date : {{ backlog.planned_start_date | date:'mediumDate':'-000' }}</p>
+          <p>Planned end date : {{ backlog.planned_end_date | date:'mediumDate':'-000' }}</p>
+          <p>Estimated efforts : {{ backlog.estimated_efforts }} hours</p>
+          <button mat-raised-button
+                  *ngIf="currentUser.role=='manager'"
+                  class="deletebacklog-btn"
+                  color="warn"
+                  (click)="deleteBacklog()">
+            <i class="material-icons close-icon">close</i> Delete Backlog
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
