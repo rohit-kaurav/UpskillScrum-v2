@@ -78,6 +78,7 @@ export class ProjectInfoComponent implements OnInit {
           console.log("project-info data ", data);
           this.project = data;
           this.activityArray = this.project.activity;
+          this.activityArray = this.activityArray.reverse();
           if (this.project['status'] == 'New') this.statusColor = "#5DADE2";
           else if (this.project['status'] == 'In Progress') this.statusColor = "#DC7633";
           else if (this.project['status'] == 'Completed') this.statusColor = "#2ECC71";
